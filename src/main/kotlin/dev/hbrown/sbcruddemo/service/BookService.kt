@@ -9,7 +9,7 @@ import javax.transaction.Transactional
 
 interface BookService : BookRepository {
     fun persistAll(books: List<Book>): List<Book>
-    fun saveAllBooks(books: List<Book>): Iterable<Book>
+    fun saveAllBooks(books: List<Book>): List<Book>
 }
 
 @Service
@@ -19,7 +19,7 @@ class BookServiceImpl(
 ) : BookService, BookRepository by bookRepository {
 
     @Transactional(Transactional.TxType.REQUIRED)
-    override fun saveAllBooks(books: List<Book>): Iterable<Book> {
+    override fun saveAllBooks(books: List<Book>): List<Book> {
         return bookRepository.saveAll(books)
     }
 
